@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Parallax Hover Cards</title>
+
+    <style>
+        /**===============================
+        Rem human fix
+        ===============================**/
+        html {
+        font-size: 62.5%; /* 1 rem = 10px;  10px/16px = 62.5%*/ 
+        }
+
+        /**===============================
+        Parallax
+        ===============================**/
+        img {
+        --parallax: .1; /* Parallax factor */
+        --radius: 1rem; /* Radius */
+
+        --parallax-position: calc(100%*var(--parallax)/(1 + var(--parallax)));
+        --angle: calc(90deg*var(--parallax));
+        cursor: pointer;
+        aspect-ratio: calc(1 + var(--parallax));
+        width: 25rem;
+        clip-path: inset(0 var(--parallax-position) 0 0 round var(--radius));
+        object-fit: cover;
+        transform: perspective(40rem) var(--x-axis,rotateY(var(--angle)));
+        transition: .5s;
+        }
+        /**===============================
+        Hover
+        ===============================**/
+        img:hover { 
+        clip-path: inset(0 0 0 var(--parallax-position) round var(--radius));
+        --x-axis:translateX(calc(-1*var(--parallax-position))) rotateY(calc(-1*var(--angle)))
+        }
+
+        /**===============================
+        Styles
+        ===============================**/
+        body {
+        margin: 0;
+        min-height: 100vh;
+        background: #08172E;
+        display: grid;
+        place-content: center;
+        }
+        .img-wrapper {
+            display: grid;
+            place-content: center;
+            grid-auto-flow: column;
+            gap: 3rem;
+        }
+        .heading-wrapper {
+        display: flex;
+        margin: 0 0 2.4rem 0;
+        justify-content: center;
+        color: white;
+        font-size: 2.4rem;
+        font-family: "Gill Sans", sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- the type of image is important for the illusion 
+        use an image having the main element in the center and a uniform background
+    -->
+    <div class='heading-wrapper'>
+    <h1>Parallax Cards</h1>
+    </div>
+    <div class='img-wrapper'>
+    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="shoe">
+    <img src="https://images.unsplash.com/photo-1541480601022-2308c0f02487?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="bottle">
+    <img src="https://images.unsplash.com/photo-1586062129117-08db958ba215?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="bannana">
+    </div>
+</body>
+</html>
