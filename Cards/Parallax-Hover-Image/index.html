@@ -30,24 +30,25 @@
         object-fit: cover;
         transform: perspective(40rem) var(--x-axis,rotateY(var(--angle)));
         transition: .5s;
-        }
-        /**===============================
-        Hover
-        ===============================**/
-        img:hover { 
-        clip-path: inset(0 0 0 var(--parallax-position) round var(--radius));
-        --x-axis:translateX(calc(-1*var(--parallax-position))) rotateY(calc(-1*var(--angle)))
+            
+            /**===============================
+            Hover
+            ===============================**/
+            &:hover { 
+            clip-path: inset(0 0 0 var(--parallax-position) round var(--radius));
+            --x-axis:translateX(calc(-1*var(--parallax-position))) rotateY(calc(-1*var(--angle)))
+            }
         }
 
         /**===============================
         Styles
         ===============================**/
         body {
-        margin: 0;
-        min-height: 100vh;
-        background: #08172E;
-        display: grid;
-        place-content: center;
+            margin: 0;
+            min-height: 100vh;
+            background: #08172E;
+            display: grid;
+            place-content: center;
         }
         .img-wrapper {
             display: grid;
@@ -56,12 +57,12 @@
             gap: 3rem;
         }
         .heading-wrapper {
-        display: flex;
-        margin: 0 0 2.4rem 0;
-        justify-content: center;
-        color: white;
-        font-size: 2.4rem;
-        font-family: "Gill Sans", sans-serif;
+            display: flex;
+            margin: 0 0 2.4rem 0;
+            justify-content: center;
+            color: white;
+            font-size: 2.4rem;
+            font-family: "Gill Sans", sans-serif;
         }
     </style>
 </head>
