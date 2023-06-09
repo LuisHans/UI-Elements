@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Linked Parallax Landing Page</title>
+    <style>
+        @import "https://unpkg.com/normalize.css" layer(normalize);
+        @import "https://unpkg.com/open-props/open-props.min.css" layer(open-props);
+        @import "https://unpkg.com/open-props/normalize.min.css" layer(open-props);
+
+        *,
+        *:after,
+        *:before {
+            box-sizing: border-box;
+            max-inline-size: 100%;
+        }
+
+        body {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            overflow: auto;
+            overflow: hidden;
+            font-family: 'Google Sans', sans-serif, system-ui;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        li {
+            height: 100vh;
+            width: 100vw;
+            padding: 0;
+        }
+
+        ul.backdrops {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
+
+        ul.contents {
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow: auto;
+        }
+
+        .contents>li {
+            display: grid;
+            place-items: center;
+            scroll-snap-align: center;
+        }
+
+        .blur {
+            backdrop-filter: blur(15px);
+            background: hsla(0, 0%, 100%, 0.15);
+            padding: 5rem 0;
+            width: 100vw;
+            text-align: center;
+            -webkit-box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 9px 30px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        h2 {
+            font-size: var(--font-size-fluid-3);
+            color: var(--gray-0);
+            /* display: none; */
+        }
+
+        img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            filter: grayscale(0.5);
+        }
+
+        .backdrops li {
+            position: absolute;
+            inset: 0;
+        }
+
+        .backdrops li:not(:first-of-type) img {
+            transform: translateY(100%);
+        }
+
+        .scroller {
+            --radius: -2.25rem;
+            text-transform: uppercase;
+            color: var(--gray-0);
+            font-weight: bold;
+            position: fixed;
+            top: 1rem;
+            right: 2rem;
+            aspect-ratio: 1;
+            width: 6rem;
+        }
+
+        .scroller:before {
+            content: "";
+            position: absolute;
+            display: block;
+            inset: 0;
+            border-radius: 50%;
+            border: 1.5rem solid hsl(0 0% 0% / 0.25);
+        }
+
+        .scroller .char {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(calc((360 / var(--char-total)) * var(--char-index) * 1deg)) translateY(var(--radius));
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scroller" data-splitting="">
+        Scroll•Scroll•Scroll•
+    </div>
+    <main>
+        <ul class="backdrops">
+            <li>
+                <img src="https://images.unsplash.com/photo-1575365717666-1a84be3fd104?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                    width="1920" alt="">
+            </li>
+            <li>
+                <img src="https://images.unsplash.com/photo-1604818640599-71bda0165d53?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                    width="1920" alt="">
+            </li>
+            <li>
+                <img src="https://images.unsplash.com/photo-1503187685617-d78d295f163e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                    width="1920" alt="">
+            </li>
+            <li>
+                <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                    width="1920" alt="">
+            </li>
+        </ul>
+        <ul class="contents">
+            <li>
+                <div class="blur">
+                    <h2>Initial Section</h2>
+                </div>
+            </li>
+            <li>
+                <div class="blur">
+                    <h2>Second Section</h2>
+                </div>
+            </li>
+            <li>
+                <div class="blur">
+                    <h2>Third Section</h2>
+                </div>
+            </li>
+            <li>
+                <div class="blur">
+                    <h2>Wow you scroll to much!</h2>
+                </div>
+            </li>
+        </ul>
+    </main>
+    <script src="https://flackr.github.io/scroll-timeline/dist/scroll-timeline.js"></script>
+    <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+    <script> Splitting(); </script>
+    <script>
+
+        const contents = document.querySelectorAll(".contents li"),
+            images = document.querySelectorAll(".backdrops li"),
+            spinner = document.querySelector(".scroller");
+
+        // For each TRIGGER set up a ViewTimeline
+        // Then create WAAPI for each backdrop
+
+        const TIMELINES = [];
+
+        contents.forEach(subject => {
+            TIMELINES.push(
+                new ViewTimeline({
+                    subject,
+                    axis: "block"
+                }));
+
+
+        });
+
+        images.forEach((backdrop, index) => {
+            const image = backdrop.querySelector("img");
+
+            image.animate(
+                [
+                    {
+                        transform: "translateY(0%)"
+                    }],
+
+
+                {
+                    timeline: TIMELINES[index - 1],
+                    fill: "both",
+                    delay: {
+                        phase: "exit",
+                        percent: CSS.percent(5)
+                    },
+
+                    endDelay: {
+                        phase: "exit",
+                        percent: CSS.percent(75)
+                    }
+                });
+
+
+
+
+            image.animate(
+                [
+                    {
+                        transform: "translateY(-50%)"
+                    }],
+
+
+                {
+                    timeline: TIMELINES[index],
+                    fill: "both",
+                    delay: {
+                        phase: "exit",
+                        percent: CSS.percent(5)
+                    },
+
+                    endDelay: {
+                        phase: "exit",
+                        percent: CSS.percent(100)
+                    }
+                });
+
+
+
+        });
+
+        spinner.animate(
+            [
+                {
+                    transform: "rotate(360deg)"
+                }],
+
+
+            {
+                fill: "both",
+                timeline: TIMELINES[TIMELINES.length - 1],
+                delay: {
+                    phase: "enter",
+                    percent: CSS.percent(-200)
+                },
+
+                endDelay: {
+                    phase: "enter",
+                    percent: CSS.percent(100)
+                }
+            });
+    </script>
+</body>
+
+</html>
